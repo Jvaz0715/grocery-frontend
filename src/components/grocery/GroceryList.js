@@ -41,7 +41,7 @@ export class GroceryList extends Component {
             } = this.props.item;
         
         const {
-                // handleDeleteByID, 
+                handleDeleteByID, 
                 handlePurchasedByID, 
                 inputID    
         } =this.props;
@@ -94,7 +94,7 @@ export class GroceryList extends Component {
                 <Button 
                     buttonName="Delete"
                     cssid="delete-button"
-                    // clickFunc={() => handleDeleteByID(_id)}
+                    clickFunc={() => handleDeleteByID(_id)}
                 />  
 
                 
@@ -107,7 +107,7 @@ export class GroceryList extends Component {
 GroceryList.propTypes = {
     item: PropTypes.object.isRequired,
     handleEditByID: PropTypes.func.isRequired,
-    // handleDeleteByID: PropTypes.func.isRequired,
+    handleDeleteByID: PropTypes.func.isRequired,
     handlePurchasedByID: PropTypes.func.isRequired,
 }
 

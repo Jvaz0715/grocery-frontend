@@ -87,7 +87,7 @@ export class Grocery extends Component {
             }
         }
 
-    }
+    };
 
     handleEditByID = async (id, editInput) => {
         try {
@@ -111,7 +111,7 @@ export class Grocery extends Component {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     handlePurchasedByID = async (id, isPurchased) => {
         try {
@@ -136,7 +136,27 @@ export class Grocery extends Component {
         } catch(e) {
             console.log(e);
         }
-    }
+    };
+
+    handleDeleteByID = async (id) => {
+        try {
+            let deletedGrocery = await axios.delete(
+                `${URL}/api/grocery-list/delete-grocery-by-id/${id}`
+            );
+
+            let filteredGroceryArray = this.state.groceryList.filter(
+                (item) => item._id !== deletedGrocery.data.payload._id
+            );
+
+            this.setState({
+                groceryList: filteredGroceryArray,
+            })
+                
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
  
     render() {
         return (
@@ -171,6 +191,7 @@ export class Grocery extends Component {
                                 item={item}
                                 handleEditByID={this.handleEditByID}
                                 handlePurchasedByID={this.handlePurchasedByID}
+                                handleDeleteByID={this.handleDeleteByID}
                                 inputID={item._id }
                                 />
                             );
