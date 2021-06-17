@@ -4,24 +4,84 @@ import "./GroceryList.css";
 import Button from "../common/Button";
 
 export class GroceryList extends Component {
-   
+    // to allow for toggle on edit of grocery, give state two properties, canEdit and editInput
+
     state = {
-            
+        canEdit: false,
+        editInput: this.props.item.grocery,        
     }
+
+    //this function will work in the ternaries that change edit button to submit button
+    // it'll toggle the canEdit of the state
+    onHandleEditClick = () => {
+        this.setState((prevState) => {
+            return {
+                canEdit: !prevState.canEdit,
+            };
+        });
+    };
+
+    handleEditOnChange = (event) => {
+        this.setState({
+            editInput: event.target.value,
+        });
+    };
+
+    onHandleEditSubmit = (id) => {
+        this.onHandleEditClick();
+        this.props.handleEditByID(id, this.state.editInput);
+    }
+
     
     render() {
-        const { grocery } = this.props.item;
+        const { 
+                grocery, 
+                _id, 
+                isPurchased 
+            } = this.props.item;
+        
+        const {
+                inputID    
+        } =this.props;
+        
+        const { 
+                canEdit, 
+                editInput 
+            } = this.state;
         
         return (
             
             <div className="groceryList-div">
-                <li className="li-style">{grocery}</li>
-                <table style={{display: "flex"}}>
+
+                {/* use ternarys to switch between a edit button and a submit edit button */}
+                {canEdit ? (
+                    <input 
+                        type="text"
+                        value={editInput}
+                        onChange={this.handleEditOnChange}
+                        name="editInput"
+                        id= { inputID }
+                    />
+                ) : (
+                    <li className={`li-style ${isPurchased && "li-style-isPurchased"}`}>{grocery}</li>
+                )}
+
+                {canEdit ? (
+                   <Button
+                        buttonName="Submit"
+                        cssid="edit-button"
+                        clickFunc={() => this.onHandleEditSubmit(_id)}
+                    /> 
+                ) : (
                     <Button
                         buttonName="Edit"
                         cssid="edit-button"
-                        // clickFunc={}
-                    />
+                        clickFunc={this.onHandleEditClick}
+                    /> 
+                )}
+                
+                
+                    
 
                     <Button 
                         buttonName="Purchased"
@@ -34,7 +94,7 @@ export class GroceryList extends Component {
                         cssid="delete-button"
                         //clickFunc={}
                     />  
-                </table>
+
                 
             </div>
             
