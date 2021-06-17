@@ -30,7 +30,15 @@ export class GroceryList extends Component {
     onHandleEditSubmit = (id) => {
         this.onHandleEditClick();
         this.props.handleEditByID(id, this.state.editInput);
-    }
+    };
+
+    // this is so your cursor goes directly to the grocery input that user wants to edit
+    componentDidUpdate() {
+        let input = document.getElementById(this.props.inputID);
+        if (input) {
+          input.focus();
+        }
+    };
 
     
     render() {
