@@ -1,0 +1,17 @@
+.groceryList-div {
+    width: 550px;
+    margin: 20px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* this class will always apply to line items */
+.li-style {
+    display: inline-block;
+    font-size: 24px;
+}
+
+/* this class will only apply to line items that get purchased and add functionality */
+.li-style-isPurchased {
+    text-decoration: line-through;
+}

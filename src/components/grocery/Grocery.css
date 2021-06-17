@@ -1,0 +1,6 @@
+.grocery-div {
+    display: flex;
+    border: 3px solid green;
+    justify-content: center;
+    margin-top: 10px;
+}
