@@ -35,3 +35,13 @@
     justify-content: center;
     margin-top: 10px;
 }
+
+.sorting-div {
+    display: flex;
+    justify-content: center;
+  }
+  .sorting-div ul li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 5px;
+  }

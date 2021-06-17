@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./Grocery.css";
 import GroceryList from "./GroceryList";
-// import Button from "../common/Button";
+import Button from "../common/Button";
 
 
 const URL = "http://localhost:3001";
@@ -16,6 +16,7 @@ export class Grocery extends Component {
         errorMessage: "",
     };
 
+    // this will load what is in the database as soon as you mount or open the browser
     async componentDidMount() {
         try {
             let allGroceries = await axios.get(
@@ -157,6 +158,21 @@ export class Grocery extends Component {
             console.log(e);
         }
     };
+
+    sortByPurchased = async(isPurchased) => {
+        try{
+            let isPurchasedGroceryArray = await axios.get(
+                `${URL}/api/grocery-list/get-groceries-by-purchased?isPurchased=${isPurchased}`
+            );
+
+            this.setState({
+                groceryList: isPurchasedGroceryArray.data.payload,
+            });
+
+        } catch(e) {
+            console.log(e);
+        }
+    }
  
     render() {
         return (
@@ -179,6 +195,43 @@ export class Grocery extends Component {
                         {/* the below will only appear if an error is triggered in handleOnSubmit */}
                         <span style={{ color : "red" }}>{this.state.error && this.state.errorMessage}</span>
                     </form>
+                </div>
+
+                {/* sorting-div */}
+                <div className="sorting-div">
+                    <ul>
+                        <li>
+                            <Button 
+                                buttonName=" Sort by date added- Oldest to Newest"
+                                cssid=""
+                                // clickFunc={}
+                            />
+                        </li>
+
+                        <li>
+                            <Button 
+                                buttonName="Sort by date added- Newest to Oldest"
+                                cssid=""
+                                // clickFunc={}
+                            />
+                        </li>
+
+                        <li>
+                            <Button 
+                                buttonName="Sort by Purchased"
+                                cssid=""
+                                clickFunc={() => this.sortByPurchased("true")}
+                            />
+                        </li>
+
+                        <li>
+                            <Button 
+                                buttonName="Sort by Not Purchased"
+                                cssid=""
+                                clickFunc={() => this.sortByPurchased("false")}
+                            />
+                        </li>
+                    </ul>
                 </div>
 
                 {/* grocery-div */}
