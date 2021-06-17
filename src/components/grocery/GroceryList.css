@@ -1,6 +1,6 @@
 .groceryList-div {
-    width: 550px;
-    margin: 20px 20px;
+    width: 500px;
+    margin: 10px 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -15,3 +15,31 @@
 .li-style-isPurchased {
     text-decoration: line-through;
 }
+
+#edit-button,
+#purchased-button,
+#delete-button {
+    padding: 10px 10px;
+    border-radius: 5px 5px;
+    color: white;
+    border-style: none;
+    margin: 10px;
+}
+
+#edit-button {
+    background-color: #6577B3;
+}
+
+#purchased-button {
+    background-color: #EDD94C;
+}
+
+#delete-button {
+    background-color: #B33F40;
+}
+
+#edit-button:active,
+#purchased-button:active,
+#delete-button:active {
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.4);
+  }
