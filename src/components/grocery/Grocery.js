@@ -88,6 +88,30 @@ export class Grocery extends Component {
         }
 
     }
+
+    handleEditByID = async (id, editInput) => {
+        try {
+            let editedGrocery = await axios.put(
+                `${URL}/api/grocery-list/update-grocery-by-id/${id}`,
+                {
+                    grocery: editInput,
+                }
+            );
+
+            let updatedGroceryArray = this.state.groceryList.map((item) => {
+                if (item._id === id) {
+                    item.grocery = editedGrocery.data.payload.grocery;
+                }
+                return item;
+            });
+
+            this.setState({
+                groceryList: updatedGroceryArray,
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
  
     render() {
         return (
@@ -119,7 +143,8 @@ export class Grocery extends Component {
                             return(
                                 <GroceryList
                                 key={item._id}
-                                item={item} 
+                                item={item}
+                                handleEditByID={this.handleEditByID} 
                                 />
                             );
                         })}

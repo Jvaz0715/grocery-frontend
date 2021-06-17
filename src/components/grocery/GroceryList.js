@@ -41,6 +41,8 @@ export class GroceryList extends Component {
             } = this.props.item;
         
         const {
+                // handleDeleteByID, 
+                // handleDoneByID, 
                 inputID    
         } =this.props;
         
@@ -104,6 +106,7 @@ export class GroceryList extends Component {
 
 GroceryList.propTypes = {
     item: PropTypes.object.isRequired,
+    handleEditByID: PropTypes.func.isRequired,
 }
 
 export default GroceryList;
