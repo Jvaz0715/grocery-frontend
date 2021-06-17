@@ -112,6 +112,31 @@ export class Grocery extends Component {
             console.log(e);
         }
     }
+
+    handlePurchasedByID = async (id, isPurchased) => {
+        try {
+            let groceryIsPurchasedUpdated = await axios.put(
+                `${URL}/api/grocery-list/update-grocery-by-id/${id}`,
+                {
+                    isPurchased: !isPurchased,
+                }
+            );
+            
+           let updatedGroceryArray = this.state.groceryList.map((item) => {
+               if (item._id === groceryIsPurchasedUpdated.data.payload._id) {
+                   item.isPurchased = groceryIsPurchasedUpdated.data.payload.isPurchased;
+               }
+               return item;
+            });
+
+            this.setState({
+                groceryList: updatedGroceryArray,
+            });
+            
+        } catch(e) {
+            console.log(e);
+        }
+    }
  
     render() {
         return (
@@ -144,7 +169,9 @@ export class Grocery extends Component {
                                 <GroceryList
                                 key={item._id}
                                 item={item}
-                                handleEditByID={this.handleEditByID} 
+                                handleEditByID={this.handleEditByID}
+                                handlePurchasedByID={this.handlePurchasedByID}
+                                inputID={item._id }
                                 />
                             );
                         })}
