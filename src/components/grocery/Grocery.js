@@ -172,6 +172,20 @@ export class Grocery extends Component {
         } catch(e) {
             console.log(e);
         }
+    };
+
+    sortByDate = async(sortOrder) => {
+        try {
+            let sortedGroceries = await axios.get(
+                `${URL}/api/grocery-list/get-groceries-by-sort?sort=${sortOrder}`
+            );
+
+            this.setState({
+                groceryList: sortedGroceries.data.payload,
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
  
     render() {
@@ -204,7 +218,7 @@ export class Grocery extends Component {
                             <Button 
                                 buttonName=" Sort by date added- Oldest to Newest"
                                 cssid=""
-                                // clickFunc={}
+                                clickFunc={() => this.sortByDate("asc")}
                             />
                         </li>
 
@@ -212,7 +226,7 @@ export class Grocery extends Component {
                             <Button 
                                 buttonName="Sort by date added- Newest to Oldest"
                                 cssid=""
-                                // clickFunc={}
+                                clickFunc={() => this.sortByDate("desc")}
                             />
                         </li>
 
